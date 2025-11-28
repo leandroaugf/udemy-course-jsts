@@ -15,6 +15,8 @@ function promiseFunction(msg, tempo) {
 }
 
 // VERSÃO ANTIGA -> PROMISES
+
+/*
 promiseFunction('promise-1', rand(0, 3))
     .then(valor => {
         console.log(valor);
@@ -28,15 +30,27 @@ promiseFunction('promise-1', rand(0, 3))
         console.log(valor3);
     })
     .catch(erro => console.log(erro));
+*/
 
-
+// await -> pausa a execução da função até que a promise seja resolvida
 async function exe() {
-    const fase1 = await promiseFunction('async', rand(0, 3));
-    console.log(fase1);
+    try {
+        const fase1 = await promiseFunction('async', rand(0, 3));
+        console.log(fase1);
+        
+        // agenda a função para rodar daqui a 1.2s
+        setTimeout(function() {
+            console.log(`promise pendente: ${fase1}`);
+        }, 1200)
 
-    const fase2 = await promiseFunction('async2', rand(0, 3));
-    console.log(fase2);
-
-    const fase3 = await promiseFunction('async3', rand(0, 3));
-    console.log(fase3);
+        
+        const fase2 = await promiseFunction('async2', rand(0, 3));
+        console.log(fase2);
+        
+        const fase3 = await promiseFunction('async3', rand(0, 3));
+        console.log(fase3);
+    } catch(e) {
+        console.log(e);
+    }
 }
+exe();
